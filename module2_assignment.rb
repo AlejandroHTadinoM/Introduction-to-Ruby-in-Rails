@@ -24,16 +24,22 @@ class LineAnalyzer
   #* identify the words that were used the maximum number of times and
   #  store that in the highest_wf_words attribute.
 
-  def initialize()
+  attr_reader :highest_wf_count, :highest_wf_words, :content, :line_number
+
+  def initialize(content, line_number)
+
+    @content, @line_number = content, line_number
+    self.calculate_word_frequency(content)
 
   end
 
-  def calculate_word_frequency()
-    for each {
-        |content| content.word
-      content.word
-    }
-    end
+  def calculate_word_frequency(content)
+
+    word_frequency = Hash.new(0)
+    content.split.each { |word| word_frequency[word.downcase] += 1}
+    @highest_wf_count = word_frequency.values.max
+    @highest_wf_words = word_frequency.select { |k, v| v == @highest_wf_count }.keys
+
   end
 
 end
