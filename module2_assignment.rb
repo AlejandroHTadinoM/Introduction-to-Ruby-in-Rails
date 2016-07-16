@@ -107,8 +107,8 @@ class Solution
     end
   end
 
-  puts "Word frequency:"
+  puts "The following words have the highest word frequency per line:"
 
-  @highest_count_words_across_lines.each { |i| puts "#{i.highest_wf_words} (line #{i.line_number})" }
+  @highest_count_words_across_lines.each { |i| puts "#{i.highest_wf_words} (appears in line #{i.line_number})" }
 
 end
