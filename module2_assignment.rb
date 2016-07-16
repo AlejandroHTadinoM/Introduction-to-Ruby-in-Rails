@@ -72,4 +72,43 @@ class Solution
 
   #Implement the print_highest_word_frequency_across_lines() method to
   #* print the values of objects in highest_count_words_across_lines in the specified format
+
+  attr_reader :highest_count_across_lines, :highest_count_words_across_lines, :analyzers
+
+  def initialize()
+    @analyzers = []
+  end
+
+  def analyze_file()
+
+    lines = File.foreach('test.txt')
+    lines.each_with_index { |line, index| @analyzers << LineAnalyzer.new(line, index) }
+    
+  end
+
+  def calculate_line_with_highest_frequency()
+
+    @highest_count_across_lines = 0
+    @highest_count_words_across_lines = []
+
+    @analyzers.each do |l|
+
+      if l.highest_wf_count > @highest_count_across_lines
+
+        @highest_count_across_lines = l.highest_wf_count
+
+      end    
+    end
+
+    @analyzers.select do |l|
+      if l.highest_wf_count == @highest_count_across_lines
+        @highest_count_across_lines << l
+      end
+    end
+  end
+
+  puts "Word frequency:"
+
+  @highest_count_words_across_lines.each { |i| puts "#{i.highest_wf_words} (line #{i.line_number})" }
+
 end
